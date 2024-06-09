@@ -14,14 +14,37 @@ mongoose
     console.error(`Database Error: ${err}`);
     process.exit(1);
   });
-
+// express app
 const app = express();
-
+// Middlewares
+app.use(express.json());
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
   console.log(`mode: ${process.env.NODE_ENV}`);
 }
+// 1- Create Schema
+const categorySchema = new mongoose.Schema({
+  name: String,
+});
 
+// 2- Create Model
+const categoryModel = mongoose.model("Category", categorySchema);
+
+//Routes
+app.post("/", (req, res) => {
+  const name = req.body.name;
+  console.log(req.body);
+
+  const newCategory = new categoryModel({ name });
+  newCategory
+    .save()
+    .then((doc) => {
+      res.json(doc);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
 app.get("/", (req, res) => {
   res.send("Our API V3");
 });
