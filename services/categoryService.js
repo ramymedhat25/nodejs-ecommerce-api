@@ -2,7 +2,7 @@ const slugify = require("slugify");
 const asyncHandler = require("express-async-handler");
 const categoryModel = require("../models/categoryModel");
 
-//@desc Get List of categories
+//@desc GET List of categories
 //@route GET /api/v1/categories
 //@access   public
 
@@ -13,6 +13,19 @@ exports.getCategories = asyncHandler(async (req, res) => {
   const categories = await categoryModel.find({}).skip(skip).limit(limit);
   res.status(200).json({ results: categories.length, page, data: categories });
 });
+//@desc GET specify category by id
+//@route GET /api/v1/categories/:id
+//@access   public
+
+exports.getCategory = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const category = await categoryModel.findById(id);
+  if (!category) {
+    res.status(404).json({ msg: "No category for this id ${id}" });
+  }
+  res.status(200).json({ data: category });
+});
+
 //@desc Create category
 //@route POST /api/v1/categories
 //@access   private
