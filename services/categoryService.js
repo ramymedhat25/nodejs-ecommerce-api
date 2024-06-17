@@ -34,7 +34,7 @@ exports.createCategory = asyncHandler(async (req, res) => {
   res.status(201).json({ data: category });
 });
 
-//@desc Update category
+//@desc Update Specific category
 //@route PUT /api/v1/categories/:id
 //@access private
 exports.updateCategory = asyncHandler(async (req, res) => {
@@ -51,4 +51,16 @@ exports.updateCategory = asyncHandler(async (req, res) => {
     return res.status(404).json({ msg: `No category for this id ${id}` });
   }
   res.status(200).json({ data: category });
+});
+
+//@desc Delete Specific category
+//@route DELETE /api/v1/categories/:id
+//@access private
+exports.deleteCategory = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const category = await categoryModel.findByIdAndDelete(id);
+  if (!category) {
+    return res.status(404).json({ msg: `No category for this id ${id}` });
+  }
+  res.status(204).send;
 });
