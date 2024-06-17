@@ -24,6 +24,15 @@ if (process.env.NODE_ENV === "development") {
 //Mount Routes
 app.use("/api/v1/categories", categoryRoute);
 
+//Global error handling Middleware
+
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  // const message = err.message;
+  // const data = err.data;
+  res.status(statusCode).json({ err });
+});
+
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
   console.log(`App Running on port ${PORT}`);
