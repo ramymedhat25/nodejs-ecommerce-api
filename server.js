@@ -24,12 +24,14 @@ if (process.env.NODE_ENV === "development") {
 //Mount Routes
 app.use("/api/v1/categories", categoryRoute);
 
-//Global error handling Middleware
+app.all("*", (req, res, next) => {
+  const err = new Error(`Can't find this route: ${req.originalUrl}`);
+  next(err.message);
+});
 
+//Global error handling Middleware
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
-  // const message = err.message;
-  // const data = err.data;
   res.status(statusCode).json({ err });
 });
 
