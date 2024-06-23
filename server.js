@@ -31,8 +31,15 @@ app.all("*", (req, res, next) => {
 
 //Global error handling Middleware
 app.use((err, req, res, next) => {
-  const statusCode = err.statusCode || 500;
-  res.status(statusCode).json({ err });
+  err.statusCode = err.statusCode || 500;
+  err.status = err.status || "error";
+
+  res.status(err.statusCode).json({
+    status: err.status,
+    error: err,
+    message: err.message,
+    stack: err.stack,
+  });
 });
 
 const PORT = process.env.PORT || 8000;
