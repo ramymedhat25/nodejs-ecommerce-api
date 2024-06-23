@@ -1,10 +1,12 @@
 const slugify = require("slugify");
 const asyncHandler = require("express-async-handler");
+const mongoose = require("mongoose");
+const ApiError = require("../utils/apiError");
 const categoryModel = require("../models/categoryModel");
 
-//@desc GET List of categories
-//@route GET /api/v1/categories
-//@access public
+// @desc GET List of categories
+// @route GET /api/v1/categories
+// @access public
 exports.getCategories = asyncHandler(async (req, res) => {
   const page = req.query.page * 1 || 1;
   const limit = req.query.limit * 1 || 4;
@@ -13,33 +15,44 @@ exports.getCategories = asyncHandler(async (req, res) => {
   res.status(200).json({ results: categories.length, page, data: categories });
 });
 
-//@desc GET specify category by id
-//@route GET /api/v1/categories/:id
-//@access public
-exports.getCategory = asyncHandler(async (req, res) => {
+// @desc GET specify category by id
+// @route GET /api/v1/categories/:id
+// @access public
+exports.getCategory = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
+
+  // Validate ObjectId
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return next(new ApiError(`Invalid ID format: ${id}`, 400));
+  }
+
   const category = await categoryModel.findById(id);
   if (!category) {
-    return res.status(404).json({ msg: `No category for this id ${id}` });
+    return next(new ApiError(`No category found for this id ${id}`, 404));
   }
   res.status(200).json({ data: category });
 });
 
-//@desc Create category
-//@route POST /api/v1/categories
-//@access private
+// @desc Create category
+// @route POST /api/v1/categories
+// @access private
 exports.createCategory = asyncHandler(async (req, res) => {
   const name = req.body.name;
   const category = await categoryModel.create({ name, slug: slugify(name) });
   res.status(201).json({ data: category });
 });
 
-//@desc Update Specific category
-//@route PUT /api/v1/categories/:id
-//@access private
-exports.updateCategory = asyncHandler(async (req, res) => {
+// @desc Update Specific category
+// @route PUT /api/v1/categories/:id
+// @access private
+exports.updateCategory = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
   const { name } = req.body;
+
+  // Validate ObjectId
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return next(new ApiError(`Invalid ID format: ${id}`, 400));
+  }
 
   const category = await categoryModel.findOneAndUpdate(
     { _id: id },
@@ -48,19 +61,25 @@ exports.updateCategory = asyncHandler(async (req, res) => {
   );
 
   if (!category) {
-    return res.status(404).json({ msg: `No category for this id ${id}` });
+    return next(new ApiError(`No category found for this id ${id}`, 404));
   }
   res.status(200).json({ data: category });
 });
 
-//@desc Delete Specific category
-//@route DELETE /api/v1/categories/:id
-//@access private
-exports.deleteCategory = asyncHandler(async (req, res) => {
+// @desc Delete Specific category
+// @route DELETE /api/v1/categories/:id
+// @access private
+exports.deleteCategory = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
+
+  // Validate ObjectId
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return next(new ApiError(`Invalid ID format: ${id}`, 400));
+  }
+
   const category = await categoryModel.findByIdAndDelete(id);
   if (!category) {
-    return res.status(404).json({ msg: `No category for this id ${id}` });
+    return next(new ApiError(`No category found for this id ${id}`, 404));
   }
-  res.status(204).send;
+  res.status(204).send();
 });
