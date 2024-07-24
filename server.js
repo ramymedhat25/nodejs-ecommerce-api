@@ -3,9 +3,10 @@ const dotenv = require("dotenv");
 const morgan = require("morgan");
 
 dotenv.config({ path: "config.env" });
-const globalError = require("./middlewares/errorMiddlewares.js");
+const globalError = require("./middlewares/errorMiddlewares");
 const dbConnection = require("./config/database");
 const categoryRoute = require("./routes/categoryRoute");
+const subCategoryRoute = require("./routes/subCategoryRoute");
 
 //Connect with DB
 dbConnection();
@@ -23,6 +24,7 @@ if (process.env.NODE_ENV === "development") {
 
 //Mount Routes
 app.use("/api/v1/categories", categoryRoute);
+app.use("/api/v1/subcategories", subCategoryRoute);
 
 app.all("*", (req, res, next) => {
   const err = new Error(`Can't find this route: ${req.originalUrl}`);
@@ -41,7 +43,7 @@ const server = app.listen(PORT, () => {
 process.on("unhandledRejection", (err) => {
   console.error(`UnhandledRejection Errors: ${err.name} | ${err.message}`);
   server.close(() => {
-    console.error('Shutting Down.....');
+    console.error("Shutting Down.....");
     process.exit(1);
   });
 });
