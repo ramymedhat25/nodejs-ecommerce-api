@@ -1,5 +1,4 @@
 const slugify = require("slugify");
-const mongoose = require("mongoose");
 const asyncHandler = require("express-async-handler");
 const ApiError = require("../utils/apiError");
 const SubCategory = require("../models/subCategoryModel");
@@ -24,7 +23,14 @@ exports.getSubCategories = asyncHandler(async (req, res) => {
   const page = req.query.page * 1 || 1;
   const limit = req.query.limit * 1 || 4;
   const skip = (page - 1) * limit;
-  const subcategories = await SubCategory.find({}).skip(skip).limit(limit);
+
+  let filterObject = {};
+  if (req.params.categoryId) filterObject = { category: req.params.categoryId };
+
+  const subcategories = await SubCategory.find(filterObject)
+    .skip(skip)
+    .limit(limit)
+    .populate({ path: "category", select: "name -_id" });
   res
     .status(200)
     .json({ results: subcategories.length, page, data: subcategories });
@@ -36,12 +42,10 @@ exports.getSubCategories = asyncHandler(async (req, res) => {
 exports.getSubCategory = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
 
-  // Validate ObjectId
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return next(new ApiError(`Invalid ID format: ${id}`, 400));
-  }
-
-  const subCategory = await SubCategory.findById(id);
+  const subCategory = await SubCategory.findById(id).populate({
+    path: "category",
+    select: "name -_id",
+  });
   if (!subCategory) {
     return next(new ApiError(`No category found for this id ${id}`, 404));
   }
