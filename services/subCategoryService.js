@@ -3,6 +3,12 @@ const asyncHandler = require("express-async-handler");
 const ApiError = require("../utils/apiError");
 const SubCategory = require("../models/subCategoryModel");
 
+exports.setCategoryIdToBody = (req, res, next) => {
+  //Nested Route
+  if (!req.body.category) req.body.category = req.params.categoryId;
+  next();
+};
+
 // @desc Create SubCategory
 // @route POST /api/v1/subcategories
 // @access private
