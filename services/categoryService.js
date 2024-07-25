@@ -21,11 +21,6 @@ exports.getCategories = asyncHandler(async (req, res) => {
 exports.getCategory = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
 
-  // Validate ObjectId
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return next(new ApiError(`Invalid ID format: ${id}`, 400));
-  }
-
   const category = await categoryModel.findById(id);
   if (!category) {
     return next(new ApiError(`No category found for this id ${id}`, 404));
@@ -49,11 +44,6 @@ exports.updateCategory = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
   const { name } = req.body;
 
-  // Validate ObjectId
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return next(new ApiError(`Invalid ID format: ${id}`, 400));
-  }
-
   const category = await categoryModel.findOneAndUpdate(
     { _id: id },
     { name, slug: slugify(name) },
@@ -71,11 +61,6 @@ exports.updateCategory = asyncHandler(async (req, res, next) => {
 // @access private
 exports.deleteCategory = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
-
-  // Validate ObjectId
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return next(new ApiError(`Invalid ID format: ${id}`, 400));
-  }
 
   const category = await categoryModel.findByIdAndDelete(id);
   if (!category) {
