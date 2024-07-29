@@ -44,25 +44,25 @@ Welcome to the Node.js E-Commerce API! This API serves as the backend for an e-c
    ```bash
    npm run start:dev
 
-**Routes**
+## Routes
 
 Categories: /api/v1/categories
 Subcategories: /api/v1/subcategories
 Brands: /api/v1/brands
 Products: /api/v1/products
 
-**Error Handling**
+## Error Handling
 
 404 errors for unmatched routes.
 Global error handler middleware for all routes.
 
-**Development Tools**
+## Development Tools
 
 Linting: ESLint with Airbnb style guide.
 Formatting: Prettier.
 Environment Handling: cross-env.
 
-**Contributing**
+## Contributing
 
 Feel free to fork the repository and submit pull requests. Contributions are welcome!
 
