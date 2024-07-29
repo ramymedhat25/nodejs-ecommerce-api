@@ -40,6 +40,27 @@ Welcome to the Node.js E-Commerce API! This API serves as the backend for an e-c
    NODE_ENV=development
 
 4. **Start the Server:**
-**For development:**
+-For development:
    ```bash
    npm run start:dev
+
+**Routes**
+Categories: /api/v1/categories
+Subcategories: /api/v1/subcategories
+Brands: /api/v1/brands
+Products: /api/v1/products
+
+**Error Handling**
+404 errors for unmatched routes.
+Global error handler middleware for all routes.
+
+**Development Tools**
+Linting: ESLint with Airbnb style guide.
+Formatting: Prettier.
+Environment Handling: cross-env.
+
+**Contributing**
+Feel free to fork the repository and submit pull requests. Contributions are welcome!
+
+**License**
+This project is licensed under the ISC License.
