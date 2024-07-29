@@ -27,3 +27,19 @@ Welcome to the Node.js E-Commerce API! This API serves as the backend for an e-c
    ```bash
    git clone https://github.com/ramymedhat25/nodejs-ecommerce-api.git
    cd nodejs-ecommerce-api
+2. **Install Dependencies:**
+
+   ```bash
+   npm install
+
+3. **Configure Environment Variables:**
+   Create a .env file based on config.env.example. 
+   ```bash
+   PORT=8000
+   MONGO_URI=<your-mongo-uri>
+   NODE_ENV=development
+
+4. **Start the Server:**
+**For development:**
+   ```bash
+   npm run start:dev
