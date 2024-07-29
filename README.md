@@ -40,19 +40,21 @@ Welcome to the Node.js E-Commerce API! This API serves as the backend for an e-c
    NODE_ENV=development
 
 4. **Start the Server:**
--For development:
+- **For development**:
    ```bash
    npm run start:dev
-
+- **For production**:
+   ```bash
+   npm run start:prod
 ## Routes
 
-Categories: /api/v1/categories
+- **Categories:** /api/v1/categories
 
-Subcategories: /api/v1/subcategories
+- **Subcategories:** /api/v1/subcategories
 
-Brands: /api/v1/brands
+- **Brands:** /api/v1/brands
 
-Products: /api/v1/products
+- **Products:** /api/v1/products
 
 ## Error Handling
 
