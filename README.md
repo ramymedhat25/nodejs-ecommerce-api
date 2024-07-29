@@ -58,14 +58,14 @@ Welcome to the Node.js E-Commerce API! This API serves as the backend for an e-c
 
 ## Error Handling
 
-404 errors for unmatched routes.
-Global error handler middleware for all routes.
+- **404 errors for unmatched routes.**
+- **Global error handler middleware for all routes.**
 
 ## Development Tools
 
-Linting: ESLint with Airbnb style guide.
-Formatting: Prettier.
-Environment Handling: cross-env.
+- **Linting: ESLint with Airbnb style guide.**
+- **Formatting: Prettier.**
+- **Environment Handling: cross-env.**
 
 ## Contributing
 
