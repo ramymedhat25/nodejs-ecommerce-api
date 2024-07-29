@@ -47,8 +47,11 @@ Welcome to the Node.js E-Commerce API! This API serves as the backend for an e-c
 ## Routes
 
 Categories: /api/v1/categories
+
 Subcategories: /api/v1/subcategories
+
 Brands: /api/v1/brands
+
 Products: /api/v1/products
 
 ## Error Handling
