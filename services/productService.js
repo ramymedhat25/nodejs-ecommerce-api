@@ -7,7 +7,7 @@ const Product = require("../models/productModel");
 exports.getProducts = factory.getAll(Product, "Products");
 
 // @desc    Get specific product by id
-// @route   GET /api/v1/products/:id 
+// @route   GET /api/v1/products/:id
 // @access  Public
 exports.getProduct = factory.getOne(Product);
 
