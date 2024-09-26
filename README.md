@@ -71,6 +71,6 @@ Welcome to the Node.js E-Commerce API! This API serves as the backend for an e-c
 
 Feel free to fork the repository and submit pull requests. Contributions are welcome!
 
-**License**
+## License
 
 This project is licensed under the ISC License.
