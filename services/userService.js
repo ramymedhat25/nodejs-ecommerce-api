@@ -5,12 +5,12 @@ const bcrypt = require("bcryptjs");
 
 const factory = require("./handlersFactory");
 const ApiError = require("../utils/apiError");
-const { uploadSingleImage } = require("../middlewares/uploadImageMiddleware");
-const createToken = require("../utils/createToken");
+// const { uploadSingleImage } = require("../middlewares/uploadImageMiddleware");
+// const createToken = require("../utils/createToken");
 const User = require("../models/userModel");
 
 // Upload single image
-exports.uploadUserImage = uploadSingleImage("profileImg");
+// exports.uploadUserImage = uploadSingleImage("profileImg");
 
 // Image processing
 exports.resizeImage = asyncHandler(async (req, res, next) => {
