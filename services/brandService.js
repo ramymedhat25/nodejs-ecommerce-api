@@ -1,6 +1,5 @@
 const slugify = require("slugify");
 const asyncHandler = require("express-async-handler");
-const mongoose = require("mongoose");
 const ApiError = require("../utils/apiError");
 const brandModel = require("../models/brandModel");
 
