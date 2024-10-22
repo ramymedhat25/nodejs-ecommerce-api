@@ -21,9 +21,5 @@ const categorySchema = new mongoose.Schema(
   }
 );
 
-// 2- Create Model
 const categoryModel = mongoose.model("Category", categorySchema);
-
-// 3- Export Model
-
 module.exports = categoryModel;
